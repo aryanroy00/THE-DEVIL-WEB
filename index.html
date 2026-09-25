@@ -30,10 +30,6 @@
       --text-muted: #a37b88;
       --font-brand: 'Cinzel', serif;
       --font-body: 'Inter', sans-serif;
-
-      /* Devil's Trishul Cursors */
-      --cursor-default: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3Cfilter id='g'%3E%3CfeGaussianBlur stdDeviation='1.2' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23g)' stroke='%23ff003c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 10 L28 28'/%3E%3Cpath d='M3 16 C10 16 16 10 16 3' fill='none'/%3E%3Cpath d='M1 1 L6 8 L8 6 Z' fill='%23ff003c'/%3E%3Cpath d='M3 16 L0 10 L7 13 Z' fill='%23ff003c'/%3E%3Cpath d='M16 3 L10 0 L13 7 Z' fill='%23ff003c'/%3E%3Cpath d='M28 28 L32 25 L25 32 Z' fill='%23ff003c'/%3E%3C/g%3E%3C/svg%3E") 1 1, auto;
-      --cursor-pointer: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3Cfilter id='g2'%3E%3CfeGaussianBlur stdDeviation='1.2' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23g2)' stroke='%2300ff66' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 10 L28 28'/%3E%3Cpath d='M3 16 C10 16 16 10 16 3' fill='none'/%3E%3Cpath d='M1 1 L6 8 L8 6 Z' fill='%2300ff66'/%3E%3Cpath d='M3 16 L0 10 L7 13 Z' fill='%2300ff66'/%3E%3Cpath d='M16 3 L10 0 L13 7 Z' fill='%2300ff66'/%3E%3Cpath d='M28 28 L32 25 L25 32 Z' fill='%2300ff66'/%3E%3C/g%3E%3C/svg%3E") 1 1, pointer;
     }
 
     * {
@@ -41,32 +37,9 @@
       margin: 0;
       padding: 0;
       font-family: var(--font-body);
-      cursor: var(--cursor-default);
     }
 
-    /* Apply clickable green pitchfork to interactive elements */
-    a,
-    button,
-    select,
-    input[type="submit"],
-    input[type="button"],
-    .btn-action,
-    .clickable-option,
-    .preset-btn,
-    .screener-tab-btn,
-    .screener-action-btn,
-    .modal-close,
-    .strike-cell,
-    .tf-pill {
-      cursor: var(--cursor-pointer) !important;
-    }
-
-    /* Preserve standard text selection cursor for inputs */
-    input[type="text"],
-    input[type="number"] {
-      cursor: text !important;
-    }
-
+    /* Custom Default Trident Cursor */
     body {
       background-color: var(--bg-primary);
       color: var(--text-main);
@@ -77,6 +50,18 @@
         radial-gradient(circle at 10% 90%, rgba(153, 0, 0, 0.25), transparent 60%),
         radial-gradient(circle at 90% 80%, rgba(255, 0, 60, 0.12), transparent 50%);
       background-attachment: fixed;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%23ff3300" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 9-9"/><path d="M12 21V3"/><path d="M8 7v4"/><path d="M16 7v4"/><path d="M12 3l-2 3h4z"/></svg>') 16 16, auto;
+    }
+
+    /* Custom Overlay Close ("X") Cursor */
+    .cart-overlay.active,
+    .modal-overlay {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%23ff3300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>') 16 16, pointer;
+    }
+
+    /* Signature Drawing Canvas Cursor */
+    .signature-area {
+      cursor: crosshair;
     }
 
     /* Floating Embers Container */
@@ -1218,7 +1203,7 @@
         <button type="button" id="copy-btn" class="btn-action btn-secondary" onclick="copyLinkAddress()">
           &#128279; Copy Link
         </button>
-
+        
         <!-- COPY SOURCE CODE BUTTON -->
         <button type="button" class="btn-action btn-secondary" onclick="copySourceCode()">
           &#128203; Copy Code
@@ -1438,797 +1423,681 @@
                 <th colspan="7" class="put-header">&#9660; PUT OPTIONS</th>
               </tr>
               <tr>
-                <th>IV %</th>
-                <th>Delta (&Delta;)</th>
-                <th>Theta (&Theta;)</th>
-                <th>Vol</th>
                 <th>OI</th>
+                <th>Vol</th>
+                <th>Delta</th>
+                <th>Impl Vol</th>
                 <th>Bid</th>
                 <th>Ask</th>
-
-                <th style="background: #1d0a17; color: #fff;">Strike Price</th>
-
-                <th>Bid</th>
+                <th>Last</th>
+                <th class="strike-header" style="font-size: 0.65rem; border-bottom: 1px solid var(--border-color);">
+                  PRICE</th>
+                <th>Last</th>
                 <th>Ask</th>
+                <th>Bid</th>
+                <th>Impl Vol</th>
+                <th>Delta</th>
                 <th>Vol</th>
                 <th>OI</th>
-                <th>Theta (&Theta;)</th>
-                <th>Delta (&Delta;)</th>
-                <th>IV %</th>
               </tr>
             </thead>
             <tbody id="option-chain-body">
-              <!-- Dynamic Rows -->
+              <!-- Dynamically Populated by JavaScript -->
             </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- MARKETS OVERVIEW -->
-    <section id="overview">
-      <div class="section-title">Market Overview</div>
-      <div class="widget-card" style="height: 500px;">
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript"
-            src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-              {
-                "colorTheme": "dark",
-                  "dateRange": "12M",
-                    "showChart": true,
-                      "locale": "en",
-                        "width": "100%",
-                          "height": "100%",
-                            "isTransparent": true,
-                              "showSymbolLogo": true,
-                                "tabs": [
-                                  {
-                                    "title": "Indices",
-                                    "symbols": [
-                                      { "s": "FOREXCOM:SPX500USD", "d": "S&P 500" },
-                                      { "s": "FOREXCOM:NSXUSD", "d": "US 100" },
-                                      { "s": "INDEX:NKY", "d": "Nikkei 225" },
-                                      { "s": "INDEX:DEU40", "d": "DAX Index" }
-                                    ]
-                                  },
-                                  {
-                                    "title": "Crypto",
-                                    "symbols": [
-                                      { "s": "BITSTAMP:BTCUSD", "d": "BTC/USD" },
-                                      { "s": "BITSTAMP:ETHUSD", "d": "ETH/USD" },
-                                      { "s": "BINANCE:SOLUSDT", "d": "SOL/USDT" }
-                                    ]
-                                  },
-                                  {
-                                    "title": "Forex",
-                                    "symbols": [
-                                      { "s": "FX:EURUSD", "d": "EUR/USD" },
-                                      { "s": "FX:GBPUSD", "d": "GBP/USD" },
-                                      { "s": "FX:USDJPY", "d": "USD/JPY" }
-                                    ]
-                                  }
-                                ]
-              }
-            </script>
+    <!-- INFERNAL SCREENER SECTION -->
+    <section id="screener">
+      <div class="section-title">Global Infernal Screener Engine</div>
+      <div class="widget-card" style="padding: 16px;">
+
+        <div class="screener-header-bar">
+          <div class="screener-view-tabs">
+            <button class="screener-tab-btn active" onclick="switchScreenerView('tech')">Tech Giants</button>
+            <button class="screener-tab-btn" onclick="switchScreenerView('crypto')">Crypto Majors</button>
+            <button class="screener-tab-btn" onclick="switchScreenerView('forex')">Forex Pairs</button>
+            <button class="screener-tab-btn" onclick="switchScreenerView('devils')">Devil's Rejects (Volatile)</button>
+          </div>
+
+          <div class="screener-filters-bar">
+            <div class="input-field" style="margin:0;">
+              <select id="screener-timeframe" onchange="runScreener()">
+                <option value="15m">15m TF</option>
+                <option value="1h">1h TF</option>
+                <option value="1d" selected>Daily TF</option>
+                <option value="1w">Weekly TF</option>
+              </select>
+            </div>
+            <input type="text" class="screener-search-input" id="screener-search" placeholder="Search Symbol..."
+              onkeyup="filterScreener()">
+          </div>
+        </div>
+
+        <div class="screener-table-container">
+          <table class="screener-table">
+            <thead>
+              <tr>
+                <th>Ticker</th>
+                <th>Price</th>
+                <th>Change %</th>
+                <th>Vol (M)</th>
+                <th>Devil's RSI</th>
+                <th>MACD Signal</th>
+                <th>Devil Rating</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="screener-body">
+              <!-- Dynamically Populated by JavaScript -->
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <!-- SCREENER & NEWS SECTION -->
-    <section id="screener" class="grid-two-col">
-      <div>
-        <div class="section-title">Infernal Multi-Asset Screener Engine</div>
-        <div class="widget-card" style="min-height: 550px; display: flex; flex-direction: column;">
-
-          <!-- Screener Header Controls -->
-          <div class="screener-header-bar">
-            <div class="screener-view-tabs">
-              <button class="screener-tab-btn active" onclick="switchScreenerView('INFERNAL_MATRIX', this)">
-                &#9889; Infernal Signal Engine
-              </button>
-              <button class="screener-tab-btn" onclick="switchScreenerView('CRYPTO', this)">
-                Crypto
-              </button>
-              <button class="screener-tab-btn" onclick="switchScreenerView('STOCKS', this)">
-                US Stocks
-              </button>
-              <button class="screener-tab-btn" onclick="switchScreenerView('FOREX', this)">
-                Forex
-              </button>
-            </div>
-
-            <!-- Custom Filters Bar -->
-            <div class="screener-filters-bar" id="screener-filters-group">
-              <div class="input-field" style="margin:0;">
-                <select id="scr-filter-type" onchange="renderCustomScreenerTable()">
-                  <option value="ALL">All Categories</option>
-                  <option value="Stock">Stocks</option>
-                  <option value="Crypto">Crypto</option>
-                  <option value="Forex">Forex</option>
-                  <option value="Commodity">Commodities</option>
-                </select>
-              </div>
-
-              <div class="input-field" style="margin:0;">
-                <select id="scr-filter-signal" onchange="renderCustomScreenerTable()">
-                  <option value="ALL">All Signals</option>
-                  <option value="STRONG BUY">Strong Buy</option>
-                  <option value="BUY">Buy</option>
-                  <option value="NEUTRAL">Neutral</option>
-                  <option value="STRONG SELL">Strong Sell</option>
-                </select>
-              </div>
-
-              <input type="text" id="scr-search-input" class="screener-search-input" placeholder="Search ticker..."
-                onkeyup="renderCustomScreenerTable()" />
-            </div>
-          </div>
-
-          <!-- View Container 1: Custom Infernal Screener Matrix -->
-          <div id="screener-matrix-view" class="screener-table-container">
-            <table class="screener-table">
-              <thead>
-                <tr>
-                  <th>Ticker / Asset</th>
-                  <th>Type</th>
-                  <th>Price</th>
-                  <th>24h Chg %</th>
-                  <th>RSI (14)</th>
-                  <th>Volatility</th>
-                  <th>Infernal Signal</th>
-                  <th style="text-align: center;">Action</th>
-                </tr>
-              </thead>
-              <tbody id="screener-table-body">
-                <!-- Dynamically Populated -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- View Container 2: Dynamic Embedded Widget View -->
-          <div id="screener-widget-view" style="display: none; height: 460px; width: 100%;">
-            <div class="tradingview-widget-container" id="screener-embedded-container"></div>
-          </div>
-
-        </div>
+    <!-- NEWS SECTION -->
+    <section id="news" class="grid-two-col">
+      <div class="widget-card">
+        <div class="section-title">Forex Cross Rates</div>
+        <div class="tradingview-widget-container" id="forex-container"></div>
       </div>
 
-      <div id="news">
-        <div class="section-title">Real-Time News Feed</div>
-        <div class="widget-card" style="height: 550px;">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
-              async>
-                {
-                  "feedMode": "all_symbols",
-                    "isTransparent": true,
-                      "displayMode": "regular",
-                        "width": "100%",
-                          "height": "100%",
-                            "colorTheme": "dark",
-                              "locale": "en"
-                }
-              </script>
-          </div>
-        </div>
+      <div class="widget-card">
+        <div class="section-title">Global Heatmap</div>
+        <div class="tradingview-widget-container" id="heatmap-container"></div>
       </div>
     </section>
 
   </main>
 
   <footer>
-    <svg width="20" height="20" viewBox="0 0 24 24" style="fill: var(--accent-red);">
+    <svg class="brand-icon" style="width: 24px; height: 24px; margin-right: -4px;" viewBox="0 0 24 24">
       <path
-        d="M12 2C11.5 4 10 6 8 6.5C6 7 4 6 2 4C3 7 4 10 6 12C8 14 9 17 9 20H15C15 17 16 14 18 12C20 10 21 7 22 4C20 6 18 7 16 6.5C14 6 12.5 4 12 2Z" />
+        d="M12 2C11.5 4 10 6 8 6.5C6 7 4 6 2 4C3 7 4 10 6 12C8 14 9 17 9 20H15C15 17 16 14 18 12C20,10 21 7 22 4C20 6 18 7 16 6.5C14 6 12.5 4 12 2Z" />
     </svg>
-    <p>&copy; 2026 <span>THE DEVIL TERMINAL</span>. Powered by TradingView Integration.</p>
+    THE <span>DEVIL</span> Infernal Market Terminal. Built for ruthlessness. Not financial advice. Trade at your own
+    peril.
   </footer>
 
-  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-  <script type="text/javascript">
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    /* -------------------------------------------------------------------------
+       STATE MANAGEMENT & INITIALIZATION
+    ------------------------------------------------------------------------- */
     let currentSymbol = "NASDAQ:AAPL";
-    let activeSelectedPrice = 225.50;
-    let selectedOptionForOrder = null;
+    let tvWidget = null;
+    let basePrice = 225.50; // Mock base price for generating dummy data
+    let optionPriceInterval; // Interval for flashing option prices
 
-    const knownAssetPrices = {
-      "NASDAQ:AAPL": 225.50,
-      "BITSTAMP:BTCUSD": 64500.00,
-      "NASDAQ:NVDA": 128.80,
-      "FOREXCOM:SPX500USD": 5620.00,
-      "BINANCE:SOLUSDT": 145.20
+    // Base symbols for screener categories
+    const screenerDataSets = {
+      tech: [
+        { ticker: "AAPL", price: 225.50, vol: "52.4" },
+        { ticker: "MSFT", price: 415.20, vol: "24.1" },
+        { ticker: "NVDA", price: 135.80, vol: "142.5" },
+        { ticker: "AMZN", price: 185.30, vol: "45.2" },
+        { ticker: "GOOGL", price: 175.40, vol: "28.9" },
+        { ticker: "META", price: 505.60, vol: "18.3" },
+        { ticker: "TSLA", price: 215.90, vol: "95.6" },
+        { ticker: "AMD", price: 165.25, vol: "65.4" }
+      ],
+      crypto: [
+        { ticker: "BTCUSD", price: 65420.50, vol: "45K" },
+        { ticker: "ETHUSD", price: 3450.20, vol: "320K" },
+        { ticker: "SOLUSDT", price: 145.60, vol: "5.2M" },
+        { ticker: "BNBUSD", price: 580.40, vol: "1.2M" },
+        { ticker: "XRPUSD", price: 0.584, vol: "145M" },
+        { ticker: "DOGEUSD", price: 0.145, vol: "850M" }
+      ],
+      forex: [
+        { ticker: "EURUSD", price: 1.0845, vol: "N/A" },
+        { ticker: "GBPUSD", price: 1.2650, vol: "N/A" },
+        { ticker: "USDJPY", price: 155.40, vol: "N/A" },
+        { ticker: "AUDUSD", price: 0.6620, vol: "N/A" },
+        { ticker: "USDCAD", price: 1.3680, vol: "N/A" }
+      ],
+      devils: [ // High Volatility / Meme / Small caps
+        { ticker: "GME", price: 24.50, vol: "45.2" },
+        { ticker: "MSTR", price: 1450.20, vol: "3.5" },
+        { ticker: "COIN", price: 245.60, vol: "12.4" },
+        { ticker: "PLTR", price: 25.80, vol: "48.9" },
+        { ticker: "SMCI", price: 850.40, vol: "8.2" },
+        { ticker: "DJT", price: 42.10, vol: "15.6" }
+      ]
     };
 
-    /* --- SCREENER DATA MATRIX --- */
-    const screenerDataset = [
-      { symbol: "NASDAQ:AAPL", name: "Apple Inc.", type: "Stock", price: 225.50, change: 1.85, rsi: 62.4, vol: "Medium", signal: "STRONG BUY" },
-      { symbol: "BITSTAMP:BTCUSD", name: "Bitcoin / USD", type: "Crypto", price: 64500.00, change: 3.42, rsi: 71.2, vol: "High", signal: "STRONG BUY" },
-      { symbol: "NASDAQ:NVDA", name: "NVIDIA Corp.", type: "Stock", price: 128.80, change: -1.15, rsi: 48.6, vol: "High", signal: "NEUTRAL" },
-      { symbol: "FOREXCOM:SPX500USD", name: "S&P 500 Index", type: "Stock", price: 5620.00, change: 0.45, rsi: 58.1, vol: "Low", signal: "BUY" },
-      { symbol: "BINANCE:SOLUSDT", name: "Solana / USDT", type: "Crypto", price: 145.20, change: -4.80, rsi: 32.5, vol: "Extreme", signal: "STRONG SELL" },
-      { symbol: "NASDAQ:TSLA", name: "Tesla Inc.", type: "Stock", price: 240.10, change: 5.60, rsi: 68.9, vol: "High", signal: "STRONG BUY" },
-      { symbol: "BITSTAMP:ETHUSD", name: "Ethereum / USD", type: "Crypto", price: 3450.00, change: 2.10, rsi: 59.3, vol: "High", signal: "BUY" },
-      { symbol: "FX:EURUSD", name: "EUR / USD", type: "Forex", price: 1.1085, change: -0.12, rsi: 45.0, vol: "Low", signal: "NEUTRAL" },
-      { symbol: "FX:USDJPY", name: "USD / JPY", type: "Forex", price: 142.30, change: 0.85, rsi: 61.0, vol: "Medium", signal: "BUY" },
-      { symbol: "COMEX:GC1!", name: "Gold Futures", type: "Commodity", price: 2580.00, change: 1.12, rsi: 66.5, vol: "Medium", signal: "STRONG BUY" },
-      { symbol: "NASDAQ:AMD", name: "Advanced Micro Devices", type: "Stock", price: 152.40, change: -2.30, rsi: 41.2, vol: "High", signal: "SELL" },
-      { symbol: "BINANCE:AVAXUSDT", name: "Avalanche / USDT", type: "Crypto", price: 28.40, change: -3.10, rsi: 38.0, vol: "Extreme", signal: "STRONG SELL" }
-    ];
+    let currentScreenerDataset = 'tech';
 
-    /* --- TOAST SYSTEM --- */
-    function showToast(message, type = "normal") {
-      const container = document.getElementById("toast-container");
-      const toast = document.createElement("div");
-      toast.className = "toast";
-      if (type === "green") toast.style.borderColor = "var(--accent-green)";
-      toast.innerHTML = `<span>&#9889;</span> <span>${message}</span>`;
+    document.addEventListener("DOMContentLoaded", () => {
+      initTradingViewWidget();
+      loadOtherWidgets();
+      initOptionExpirations();
+      generateInfernalSignal();
+      renderOptionChain();
+      runScreener();
+      startLivePriceSimulation();
+    });
+
+
+    /* -------------------------------------------------------------------------
+       TOAST NOTIFICATION SYSTEM
+    ------------------------------------------------------------------------- */
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        ${message}
+      `;
       container.appendChild(toast);
 
       setTimeout(() => {
-        toast.style.animation = "slideIn 0.3s ease-out reverse forwards";
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(100%)";
+        toast.style.transition = "all 0.3s ease";
         setTimeout(() => toast.remove(), 300);
-      }, 3000);
+      }, 3500);
     }
 
-    /* --- REAL-TIME PRICE TICK SIMULATOR --- */
-    function startLivePriceTicker() {
-      setInterval(() => {
-        const delta = (Math.random() - 0.49) * (activeSelectedPrice * 0.002);
-        activeSelectedPrice = Math.max(1, activeSelectedPrice + delta);
+    /* -------------------------------------------------------------------------
+       WIDGET INITIALIZATION
+    ------------------------------------------------------------------------- */
+    function initTradingViewWidget() {
+      if (tvWidget) {
+        // Simple hack to re-init completely: clear container
+        document.getElementById('tv_chart_container').innerHTML = '';
+      }
 
-        const priceEl = document.getElementById("sig-price");
-        if (priceEl && document.activeElement !== priceEl) {
-          priceEl.value = activeSelectedPrice.toFixed(2);
-        }
-
-        const optPriceEl = document.getElementById("opt-underlying-price");
-        if (optPriceEl) {
-          optPriceEl.innerText = `$${activeSelectedPrice.toFixed(2)}`;
-          optPriceEl.classList.remove("flash-up", "flash-down");
-          void optPriceEl.offsetWidth; // trigger reflow
-          optPriceEl.classList.add(delta >= 0 ? "flash-up" : "flash-down");
-        }
-
-        // Randomly tick screener dataset items
-        const randomIdx = Math.floor(Math.random() * screenerDataset.length);
-        const item = screenerDataset[randomIdx];
-        const itemDelta = (Math.random() - 0.49) * (item.price * 0.003);
-        item.price = Math.max(0.0001, item.price + itemDelta);
-        item.change += (itemDelta > 0 ? 0.05 : -0.05);
-
-        // Re-render screener matrix if visible
-        if (document.getElementById("screener-matrix-view").style.display !== "none") {
-          renderCustomScreenerTable(false);
-        }
-      }, 4000);
-    }
-
-    /* --- TRADINGVIEW CHART ENGINE --- */
-    function loadMainChart(symbol) {
-      document.getElementById("tv_chart_container").innerHTML = "";
-      new TradingView.widget({
+      tvWidget = new TradingView.widget({
         "autosize": true,
-        "symbol": symbol,
-        "interval": "D",
+        "symbol": currentSymbol,
+        "interval": "60",
         "timezone": "Etc/UTC",
         "theme": "dark",
-        "style": "1",
+        "style": "1", // 1=Candles
         "locale": "en",
-        "toolbar_bg": "#0a0408",
         "enable_publishing": false,
-        "allow_symbol_change": true,
+        "backgroundColor": "#040204",
+        "gridColor": "#380e19",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "save_image": false,
+        "container_id": "tv_chart_container",
+        "toolbar_bg": "#12070f",
         "studies": [
-          "STD;EMA",
-          "STD;RSI",
-          "STD;MACD"
-        ],
-        "container_id": "tv_chart_container"
+          "Volume@tv-basicstudies",
+          "MACD@tv-basicstudies",
+          "RSI@tv-basicstudies"
+        ]
       });
-    }
 
-    /* --- TREND FINDER LOGIC --- */
-    function updateTrendFinder(symbol) {
-      document.getElementById("current-asset-label").innerText = symbol;
+      // Update Labels
+      document.getElementById('current-asset-label').innerText = currentSymbol;
+      document.getElementById('opt-asset-name').innerText = currentSymbol;
 
-      let hash = 0;
-      for (let i = 0; i < symbol.length; i++) hash += symbol.charCodeAt(i);
+      // Mock update base price based on symbol type
+      if (currentSymbol.includes("BTC")) basePrice = 65420;
+      else if (currentSymbol.includes("ETH")) basePrice = 3450;
+      else if (currentSymbol.includes("NVDA")) basePrice = 135;
+      else if (currentSymbol.includes("SPX")) basePrice = 5250;
+      else if (currentSymbol.includes("SOL")) basePrice = 145;
+      else if (currentSymbol.includes("EURUSD")) basePrice = 1.08;
+      else basePrice = 225.50; // AAPL default
 
-      const timeframes = ["5m", "15m", "1h", "4h", "1d"];
-      timeframes.forEach((tf, index) => {
-        const isBullish = (hash + index * 3) % 2 === 0;
-        const pillEl = document.getElementById(`tf-${tf}`);
-        if (pillEl) {
-          if (isBullish) {
-            pillEl.className = "tf-badge bullish";
-            pillEl.innerHTML = "&#9650; BULLISH";
-          } else {
-            pillEl.className = "tf-badge bearish";
-            pillEl.innerHTML = "&#9660; BEARISH";
-          }
-        }
-      });
-    }
+      document.getElementById('sig-price').value = basePrice;
+      document.getElementById('opt-underlying-price').innerText = `$${basePrice.toFixed(2)}`;
 
-    /* --- SIGNAL & PINE SCRIPT GENERATOR --- */
-    function generateInfernalSignal() {
-      const strategy = document.getElementById("sig-strategy").value;
-      const timeframe = document.getElementById("sig-timeframe").value;
-      const riskMult = parseFloat(document.getElementById("sig-risk").value);
-      let refPrice = parseFloat(document.getElementById("sig-price").value) || activeSelectedPrice;
-
-      const isLong = Math.random() > 0.45;
-      const directionBadge = document.getElementById("sig-direction-badge");
-
-      let slPercent = 0.02 * riskMult;
-      let tp1Percent = 0.04 * riskMult;
-      let tp2Percent = 0.08 * riskMult;
-
-      let entry = refPrice;
-      let sl, tp1, tp2;
-
-      if (isLong) {
-        directionBadge.style.color = "var(--accent-green)";
-        directionBadge.innerHTML = "&#9650; STRONG LONG";
-        sl = entry * (1 - slPercent);
-        tp1 = entry * (1 + tp1Percent);
-        tp2 = entry * (1 + tp2Percent);
-      } else {
-        directionBadge.style.color = "var(--accent-red)";
-        directionBadge.innerHTML = "&#9660; STRONG SHORT";
-        sl = entry * (1 + slPercent);
-        tp1 = entry * (1 - tp1Percent);
-        tp2 = entry * (1 - tp2Percent);
-      }
-
-      document.getElementById("sig-entry").innerText = `$${entry.toFixed(2)}`;
-      document.getElementById("sig-sl").innerText = `$${sl.toFixed(2)}`;
-      document.getElementById("sig-tp1").innerText = `$${tp1.toFixed(2)}`;
-      document.getElementById("sig-tp2").innerText = `$${tp2.toFixed(2)}`;
-
-      const pineCode = `//@version=5\n// DEVIL ENGINE SIGNAL: ${strategy} (${timeframe})\nindicator("Infernal ${strategy}", overlay=true)\nfastEMA = ta.ema(close, 9)\nslowEMA = ta.ema(close, 21)\nbuySig = ta.crossover(fastEMA, slowEMA)\nsellSig = ta.crossunder(fastEMA, slowEMA)\nplotshape(buySig, title="LONG", style=shape.triangleup, color=color.green, location=location.belowbar)\nplotshape(sellSig, title="SHORT", style=shape.triangledown, color=color.red, location=location.abovebar)`;
-
-      document.getElementById("pine-code-output").innerText = pineCode;
-    }
-
-    function copyPineScript() {
-      const pineText = document.getElementById("pine-code-output").innerText;
-      navigator.clipboard.writeText(pineText).then(() => {
-        showToast("Infernal Pine Script copied to clipboard!", "green");
-      });
-    }
-
-    function updateWidgets(symbol) {
-      currentSymbol = symbol;
-      if (knownAssetPrices[symbol]) {
-        activeSelectedPrice = knownAssetPrices[symbol];
-        document.getElementById("sig-price").value = activeSelectedPrice;
-      }
-
-      loadMainChart(symbol);
-      updateTechnicalGauge(symbol);
-      updateCompanyProfile(symbol);
-      updateTrendFinder(symbol);
-
-      document.getElementById("symbol-input").value = symbol;
+      // Re-trigger signal generation and options chain based on new base price
       generateInfernalSignal();
-      populateOptionExpirations();
       renderOptionChain();
     }
 
-    function updateTechnicalGauge(symbol) {
-      const gaugeContainer = document.getElementById("gauge-container");
-      gaugeContainer.innerHTML = "";
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        "interval": "1D",
-        "width": "100%",
-        "isTransparent": true,
-        "height": "100%",
-        "symbol": symbol,
-        "showIntervalTabs": true,
-        "displayMode": "single",
-        "locale": "en",
-        "colorTheme": "dark"
-      });
-      gaugeContainer.appendChild(script);
-    }
-
-    function updateCompanyProfile(symbol) {
-      const profileContainer = document.getElementById("profile-container");
-      profileContainer.innerHTML = "";
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js";
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        "symbol": symbol,
+    function loadOtherWidgets() {
+      createTVWidget('gauge-container', {
+        "symbol": currentSymbol,
         "width": "100%",
         "height": "100%",
         "colorTheme": "dark",
         "isTransparent": true,
         "locale": "en"
-      });
-      profileContainer.appendChild(script);
-    }
+      }, "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js");
 
-    /* --- OPTION CHAIN ENGINE --- */
-    function populateOptionExpirations() {
-      const select = document.getElementById("opt-expiration");
-      select.innerHTML = "";
+      createTVWidget('profile-container', {
+        "symbol": currentSymbol,
+        "width": "100%",
+        "height": "100%",
+        "colorTheme": "dark",
+        "isTransparent": true,
+        "locale": "en"
+      }, "https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js");
 
-      const today = new Date();
-      const expirations = [];
+      // Load static widgets only once
+      if (document.getElementById('forex-container').innerHTML === '') {
+        createTVWidget('forex-container', {
+          "width": "100%",
+          "height": "100%",
+          "currencies": ["EUR", "USD", "JPY", "GBP", "AUD", "CAD"],
+          "isTransparent": true,
+          "colorTheme": "dark",
+          "locale": "en"
+        }, "https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js");
 
-      let daysUntilFriday = (5 - today.getDay() + 7) % 7;
-      if (daysUntilFriday === 0) daysUntilFriday = 7;
-
-      for (let i = 0; i < 4; i++) {
-        const expDate = new Date(today);
-        expDate.setDate(today.getDate() + daysUntilFriday + (i * 7));
-        expirations.push(expDate.toISOString().split('T')[0]);
+        createTVWidget('heatmap-container', {
+          "width": "100%",
+          "height": "100%",
+          "hasTopBar": false,
+          "isTransparent": true,
+          "colorTheme": "dark",
+          "locale": "en"
+        }, "https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js");
       }
+    }
 
-      expirations.forEach((expStr, idx) => {
-        const opt = document.createElement("option");
-        opt.value = expStr;
-        opt.innerText = `${expStr} ${idx === 0 ? '(0DTE/Weekly)' : ''}`;
-        select.appendChild(opt);
+    function createTVWidget(containerId, config, scriptSrc) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const widgetDiv = document.createElement('div');
+      widgetDiv.className = 'tradingview-widget-container__widget';
+      container.appendChild(widgetDiv);
+
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = scriptSrc;
+      script.async = true;
+      script.text = JSON.stringify(config);
+      container.appendChild(script);
+    }
+
+    /* -------------------------------------------------------------------------
+       INTERACTIONS
+    ------------------------------------------------------------------------- */
+    function handleSymbolSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('symbol-input').value.trim().toUpperCase();
+      if (input) {
+        currentSymbol = input;
+        initTradingViewWidget();
+        loadOtherWidgets();
+        document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      }
+    }
+
+    function changeSymbol(sym, btn) {
+      document.getElementById('symbol-input').value = sym;
+      currentSymbol = sym;
+      initTradingViewWidget();
+      loadOtherWidgets();
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function downloadTemplate() {
+      showToast("Workspace template saved to local cache.");
+    }
+
+    function copyLinkAddress() {
+      const dummyLink = "https://devil.terminal/?workspace=alpha-77X";
+      navigator.clipboard.writeText(dummyLink).then(() => {
+        showToast("Encrypted link copied to clipboard.");
       });
     }
 
-    function calculateStrikeStep(price) {
-      if (price < 50) return 1.0;
-      if (price < 200) return 2.5;
-      if (price < 1000) return 5.0;
-      if (price < 10000) return 50.0;
-      return 500.0;
+    // Function to download the entire source code as an HTML file inside a ZIP
+    function downloadAsZip() {
+        const zip = new JSZip();
+        
+        // Get the entire HTML of the current page
+        // DO NOT change this logic.
+        const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+        // Add the HTML file to the zip
+        zip.file("devil_terminal.html", htmlContent);
+
+        // Generate the zip file and trigger download
+        zip.generateAsync({ type: "blob" })
+            .then(function (content) {
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(content);
+                link.download = "Devil_Terminal_Workspace.zip";
+                link.click();
+                showToast("Source Code Zipped & Downloaded Successfully.");
+            });
+    }
+    
+    // Function to copy the entire source code to clipboard
+    function copySourceCode() {
+        const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+        navigator.clipboard.writeText(htmlContent).then(() => {
+            showToast("Source code copied to clipboard.");
+        }).catch(err => {
+            showToast("Failed to copy code.");
+            console.error(err);
+        });
+    }
+
+
+    /* -------------------------------------------------------------------------
+       DEVIL'S SIGNAL ENGINE & PINE SCRIPT GEN
+    ------------------------------------------------------------------------- */
+    function onReferencePriceChange() {
+      basePrice = parseFloat(document.getElementById('sig-price').value) || basePrice;
+      generateInfernalSignal();
+    }
+
+    function generateInfernalSignal() {
+      const strat = document.getElementById('sig-strategy').value;
+      const tf = document.getElementById('sig-timeframe').value;
+      const risk = parseFloat(document.getElementById('sig-risk').value);
+      const price = parseFloat(document.getElementById('sig-price').value);
+
+      // Randomize direction purely for demonstration
+      const isLong = Math.random() > 0.4;
+      const directionStr = isLong ? '&#9650; STRONG LONG' : '&#9660; STRONG SHORT';
+      const color = isLong ? 'var(--accent-green)' : 'var(--accent-red)';
+
+      document.getElementById('sig-direction-badge').innerHTML = directionStr;
+      document.getElementById('sig-direction-badge').style.color = color;
+
+      document.getElementById('sig-entry').innerText = `$${price.toFixed(2)}`;
+
+      // Calculate SL and TP based on risk profile (dummy percentages)
+      const slPct = isLong ? -0.02 * (1 / risk) : 0.02 * (1 / risk);
+      const tp1Pct = isLong ? 0.04 * risk : -0.04 * risk;
+      const tp2Pct = isLong ? 0.08 * risk : -0.08 * risk;
+
+      const slPrice = price * (1 + slPct);
+      const tp1Price = price * (1 + tp1Pct);
+      const tp2Price = price * (1 + tp2Pct);
+
+      document.getElementById('sig-sl').innerText = `$${slPrice.toFixed(2)}`;
+      document.getElementById('sig-tp1').innerText = `$${tp1Price.toFixed(2)}`;
+      document.getElementById('sig-tp2').innerText = `$${tp2Price.toFixed(2)}`;
+
+      // Generate Pine Code snippet
+      const pineCode = `// THE DEVIL INFERNAL ENGINE - Auto-Generated
+//@version=5
+indicator("Devil Signal ${strat} ${tf}", overlay=true)
+
+// Entry: $${price.toFixed(2)}
+// SL: $${slPrice.toFixed(2)}
+// TP1: $${tp1Price.toFixed(2)} | TP2: $${tp2Price.toFixed(2)}
+
+strat_type = "${strat}"
+is_long = ${isLong ? "true" : "false"}
+risk_mult = ${risk}
+
+// --- Logic Wrapper ---
+ema_fast = ta.ema(close, 9)
+ema_slow = ta.ema(close, 21)
+plot(ema_fast, color=color.red, linewidth=2, title="Devil Fast")
+plot(ema_slow, color=color.maroon, linewidth=2, title="Devil Slow")
+
+// Alert Condition
+condition = is_long ? ta.crossover(ema_fast, ema_slow) : ta.crossunder(ema_fast, ema_slow)
+plotshape(condition, style=shape.labelup, color=color.new(color.red, 0), size=size.normal, text="DEVIL")
+alertcondition(condition, title="Devil Strike", message="Infernal Engine Triggered")
+      `;
+
+      document.getElementById('pine-code-output').innerText = pineCode;
+    }
+
+    function copyPineScript() {
+      const code = document.getElementById('pine-code-output').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast("Pine Script Code copied. Paste into TradingView Editor.");
+      });
+    }
+
+    /* -------------------------------------------------------------------------
+       INFERNAL OPTION CHAIN GENERATOR
+    ------------------------------------------------------------------------- */
+    function initOptionExpirations() {
+      const sel = document.getElementById('opt-expiration');
+      sel.innerHTML = '';
+      const today = new Date();
+      // Generate 4 weekly expirations (Fridays)
+      for (let i = 1; i <= 4; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + ((5 - today.getDay() + 7) % 7 || 7) + (i - 1) * 7); // Next Fridays
+        const dateStr = d.toISOString().split('T')[0];
+        sel.innerHTML += `<option value="${dateStr}">${dateStr} (${i}W)</option>`;
+      }
     }
 
     function renderOptionChain() {
-      const underlyingPrice = parseFloat(document.getElementById("sig-price").value) || activeSelectedPrice;
-      const range = parseInt(document.getElementById("opt-range").value) || 10;
-      const step = calculateStrikeStep(underlyingPrice);
+      clearInterval(optionPriceInterval); // Stop previous flashing interval
 
-      document.getElementById("opt-asset-name").innerText = currentSymbol;
-      document.getElementById("opt-underlying-price").innerText = `$${underlyingPrice.toFixed(2)}`;
+      const tbody = document.getElementById('option-chain-body');
+      tbody.innerHTML = '';
+      const rangeSelect = parseInt(document.getElementById('opt-range').value);
 
-      const baseStrike = Math.round(underlyingPrice / step) * step;
-      const strikes = [];
+      // Determine strike step based on price magnitude
+      let strikeStep = 5;
+      if (basePrice < 50) strikeStep = 1;
+      else if (basePrice > 1000) strikeStep = 50;
+      else if (basePrice > 200) strikeStep = 5;
 
-      for (let i = -range; i <= range; i++) {
-        strikes.push(parseFloat((baseStrike + (i * step)).toFixed(2)));
+      // Find nearest ATM strike
+      const atmStrike = Math.round(basePrice / strikeStep) * strikeStep;
+
+      // Generate strikes arrays
+      let strikes = [];
+      for (let i = -rangeSelect; i <= rangeSelect; i++) {
+        strikes.push(atmStrike + (i * strikeStep));
       }
 
-      const tbody = document.getElementById("option-chain-body");
-      tbody.innerHTML = "";
-
-      let totalCallVol = 0;
-      let totalPutVol = 0;
-
+      // Generate Table Rows
       strikes.forEach(strike => {
-        const isATM = Math.abs(strike - baseStrike) < (step * 0.1);
-        const isCallITM = underlyingPrice > strike;
-        const isPutITM = underlyingPrice < strike;
-        const moneyness = (underlyingPrice - strike) / underlyingPrice;
+        const isAtm = strike === atmStrike;
+        const callItm = strike < basePrice;
+        const putItm = strike > basePrice;
 
-        const iv = (0.22 + Math.abs(moneyness) * 0.45 + (Math.random() * 0.03)).toFixed(1);
+        const callClass = callItm ? 'itm-call' : '';
+        const putClass = putItm ? 'itm-put' : '';
 
-        // Call Pricing
-        const callIntrinsic = Math.max(0, underlyingPrice - strike);
-        const callExtrinsic = underlyingPrice * 0.02 * Math.exp(-Math.pow(moneyness * 8, 2));
-        const callPrice = callIntrinsic + callExtrinsic;
-        const callBid = (callPrice * 0.98).toFixed(2);
-        const callAsk = (callPrice * 1.02).toFixed(2);
-        const callDelta = (1 / (1 + Math.exp(-moneyness * 12))).toFixed(2);
-        const callTheta = (-0.08 * (1 - Math.abs(moneyness))).toFixed(2);
-        const callVol = Math.floor(Math.random() * 4500 + 120);
-        const callOI = Math.floor(callVol * (1.5 + Math.random() * 2));
+        // Dummy Data Generators (using math sin/cos to make them look related)
+        const distance = Math.abs(strike - basePrice) / basePrice;
 
-        // Put Pricing
-        const putIntrinsic = Math.max(0, strike - underlyingPrice);
-        const putExtrinsic = callExtrinsic;
-        const putPrice = putIntrinsic + putExtrinsic;
-        const putBid = (putPrice * 0.98).toFixed(2);
-        const putAsk = (putPrice * 1.02).toFixed(2);
-        const putDelta = (callDelta - 1.0).toFixed(2);
-        const putTheta = callTheta;
-        const putVol = Math.floor(Math.random() * 4200 + 100);
-        const putOI = Math.floor(putVol * (1.4 + Math.random() * 2));
+        // Calls Data
+        const c_delta = Math.max(0.01, Math.min(0.99, callItm ? (1 - distance) : (0.5 - distance * 2)));
+        const c_iv = (30 + distance * 100).toFixed(1) + '%';
+        const c_price = Math.max(0.05, (c_delta * strikeStep * 2)).toFixed(2);
+        const c_bid = (c_price * 0.95).toFixed(2);
+        const c_ask = (c_price * 1.05).toFixed(2);
+        const c_vol = Math.floor(Math.random() * 5000 * (isAtm ? 5 : 1));
+        const c_oi = Math.floor(c_vol * 1.5 + Math.random() * 1000);
 
-        totalCallVol += callVol;
-        totalPutVol += putVol;
+        // Puts Data
+        const p_delta = Math.max(-0.99, Math.min(-0.01, putItm ? (-1 + distance) : (-0.5 + distance * 2)));
+        const p_iv = (32 + distance * 110).toFixed(1) + '%';
+        const p_price = Math.max(0.05, (Math.abs(p_delta) * strikeStep * 2)).toFixed(2);
+        const p_bid = (p_price * 0.95).toFixed(2);
+        const p_ask = (p_price * 1.05).toFixed(2);
+        const p_vol = Math.floor(Math.random() * 4000 * (isAtm ? 5 : 1));
+        const p_oi = Math.floor(p_vol * 1.5 + Math.random() * 1000);
 
-        const row = document.createElement("tr");
 
-        row.innerHTML = `
-          <!-- CALLS -->
-          <td class="${isCallITM ? 'itm-call' : ''}" style="color: var(--text-muted);">${iv}%</td>
-          <td class="${isCallITM ? 'itm-call' : ''}" style="color: var(--accent-green);">${callDelta}</td>
-          <td class="${isCallITM ? 'itm-call' : ''}" style="color: var(--accent-red);">${callTheta}</td>
-          <td class="${isCallITM ? 'itm-call' : ''}">${callVol.toLocaleString()}</td>
-          <td class="${isCallITM ? 'itm-call' : ''}">${callOI.toLocaleString()}</td>
-          <td class="${isCallITM ? 'itm-call' : ''} clickable-option" onclick="openOrderModal(${strike}, 'CALL', ${callAsk})">$${callBid}</td>
-          <td class="${isCallITM ? 'itm-call' : ''} clickable-option" onclick="openOrderModal(${strike}, 'CALL', ${callAsk})" style="color: var(--accent-green); font-weight: bold;">$${callAsk}</td>
-
-          <!-- STRIKE -->
-          <td class="strike-cell ${isATM ? 'atm' : ''}" onclick="openOrderModal(${strike}, 'ATM', ${underlyingPrice})">$${strike.toFixed(2)}</td>
-
-          <!-- PUTS -->
-          <td class="${isPutITM ? 'itm-put' : ''} clickable-option" onclick="openOrderModal(${strike}, 'PUT', ${putAsk})" style="color: var(--accent-red); font-weight: bold;">$${putBid}</td>
-          <td class="${isPutITM ? 'itm-put' : ''} clickable-option" onclick="openOrderModal(${strike}, 'PUT', ${putAsk})">$${putAsk}</td>
-          <td class="${isPutITM ? 'itm-put' : ''}">${putVol.toLocaleString()}</td>
-          <td class="${isPutITM ? 'itm-put' : ''}">${putOI.toLocaleString()}</td>
-          <td class="${isPutITM ? 'itm-put' : ''}" style="color: var(--accent-red);">${putTheta}</td>
-          <td class="${isPutITM ? 'itm-put' : ''}" style="color: var(--accent-red);">${putDelta}</td>
-          <td class="${isPutITM ? 'itm-put' : ''}" style="color: var(--text-muted);">${iv}%</td>
-        `;
-
-        tbody.appendChild(row);
-      });
-
-      // PCR & Analytics Update
-      const pcr = (totalPutVol / (totalCallVol || 1)).toFixed(2);
-      const pcrBadge = document.getElementById("opt-pcr-vol");
-      if (pcr < 0.9) {
-        pcrBadge.style.color = "var(--accent-green)";
-        pcrBadge.innerText = `${pcr} (Bullish Bias)`;
-      } else if (pcr > 1.1) {
-        pcrBadge.style.color = "var(--accent-red)";
-        pcrBadge.innerText = `${pcr} (Bearish Bias)`;
-      } else {
-        pcrBadge.style.color = "var(--text-main)";
-        pcrBadge.innerText = `${pcr} (Neutral)`;
-      }
-
-      document.getElementById("opt-max-pain").innerText = `$${baseStrike.toFixed(2)}`;
-    }
-
-    /* --- SCREENER LOGIC & ENGINE --- */
-    function renderCustomScreenerTable(showToastFlag = false) {
-      const filterType = document.getElementById("scr-filter-type").value;
-      const filterSignal = document.getElementById("scr-filter-signal").value;
-      const searchQuery = document.getElementById("scr-search-input").value.trim().toLowerCase();
-
-      const tbody = document.getElementById("screener-table-body");
-      tbody.innerHTML = "";
-
-      const filtered = screenerDataset.filter(item => {
-        const matchesType = (filterType === "ALL" || item.type === filterType);
-        const matchesSignal = (filterSignal === "ALL" || item.signal === filterSignal);
-        const matchesSearch = item.symbol.toLowerCase().includes(searchQuery) || item.name.toLowerCase().includes(searchQuery);
-        return matchesType && matchesSignal && matchesSearch;
-      });
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 20px; color: var(--text-muted);">No matching assets found in Infernal Matrix.</td></tr>`;
-        return;
-      }
-
-      filtered.forEach(item => {
-        const tr = document.createElement("tr");
-        const chgClass = item.change >= 0 ? "var(--accent-green)" : "var(--accent-red)";
-        const chgSign = item.change >= 0 ? "+" : "";
-
-        let badgeClass = "neutral";
-        if (item.signal === "STRONG BUY") badgeClass = "strong-buy";
-        else if (item.signal === "BUY") badgeClass = "buy";
-        else if (item.signal === "SELL") badgeClass = "sell";
-        else if (item.signal === "STRONG SELL") badgeClass = "strong-sell";
-
+        const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>
-            <div style="font-weight: 700; color: #fff;">${item.symbol}</div>
-            <div style="font-size: 0.68rem; color: var(--text-muted);">${item.name}</div>
-          </td>
-          <td><span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">${item.type}</span></td>
-          <td style="font-weight: 700;">$${item.price < 10 ? item.price.toFixed(4) : item.price.toFixed(2)}</td>
-          <td style="color: ${chgClass}; font-weight: 700;">${chgSign}${item.change.toFixed(2)}%</td>
-          <td>${item.rsi.toFixed(1)}</td>
-          <td><span style="font-size: 0.7rem; color: var(--text-muted);">${item.vol}</span></td>
-          <td><span class="screener-badge ${badgeClass}">${item.signal}</span></td>
-          <td style="text-align: center;">
-            <button class="screener-action-btn" onclick="updateWidgets('${item.symbol}')">Load Chart</button>
-          </td>
+          <td class="${callClass}">${c_oi}</td>
+          <td class="${callClass}">${c_vol}</td>
+          <td class="${callClass}">${c_delta.toFixed(2)}</td>
+          <td class="${callClass}">${c_iv}</td>
+          <td class="${callClass} clickable-option" onclick="openOrderModal('CALL', ${strike}, ${c_bid}, 'BID')">${c_bid}</td>
+          <td class="${callClass} clickable-option" onclick="openOrderModal('CALL', ${strike}, ${c_ask}, 'ASK')">${c_ask}</td>
+          <td class="${callClass} call-last-price" data-base="${c_price}">${c_price}</td>
+          
+          <td class="strike-cell ${isAtm ? 'atm' : ''}">${strike.toFixed(2)}</td>
+          
+          <td class="${putClass} put-last-price" data-base="${p_price}">${p_price}</td>
+          <td class="${putClass} clickable-option" onclick="openOrderModal('PUT', ${strike}, ${p_ask}, 'ASK')">${p_ask}</td>
+          <td class="${putClass} clickable-option" onclick="openOrderModal('PUT', ${strike}, ${p_bid}, 'BID')">${p_bid}</td>
+          <td class="${putClass}">${p_iv}</td>
+          <td class="${putClass}">${p_delta.toFixed(2)}</td>
+          <td class="${putClass}">${p_vol}</td>
+          <td class="${putClass}">${p_oi}</td>
         `;
         tbody.appendChild(tr);
       });
 
-      if (showToastFlag) {
-        showToast("Screener matrix updated", "green");
-      }
+      startOptionPriceFlashing();
     }
 
-    function switchScreenerView(view, btnElement) {
-      document.querySelectorAll(".screener-tab-btn").forEach(btn => btn.classList.remove("active"));
-      if (btnElement) btnElement.classList.add("active");
+    function startOptionPriceFlashing() {
+      // Simulate live ticking of option prices
+      optionPriceInterval = setInterval(() => {
+        const rows = document.querySelectorAll('.call-last-price, .put-last-price');
+        // Pick a few random rows to update
+        for (let i = 0; i < 3; i++) {
+          const randIndex = Math.floor(Math.random() * rows.length);
+          const cell = rows[randIndex];
+          const basePriceStr = cell.getAttribute('data-base');
+          if (basePriceStr) {
+            const bp = parseFloat(basePriceStr);
+            // shift price by +/- 2%
+            const change = bp * 0.02 * (Math.random() > 0.5 ? 1 : -1);
+            const newP = Math.max(0.01, bp + change).toFixed(2);
 
-      const matrixView = document.getElementById("screener-matrix-view");
-      const widgetView = document.getElementById("screener-widget-view");
-      const filtersGroup = document.getElementById("screener-filters-group");
-
-      if (view === 'INFERNAL_MATRIX') {
-        matrixView.style.display = "block";
-        widgetView.style.display = "none";
-        filtersGroup.style.display = "flex";
-        renderCustomScreenerTable();
-      } else {
-        matrixView.style.display = "none";
-        widgetView.style.display = "block";
-        filtersGroup.style.display = "none";
-        loadTradingViewScreenerWidget(view.toLowerCase());
-      }
+            cell.innerText = newP;
+            cell.classList.remove('flash-up', 'flash-down');
+            // trigger reflow
+            void cell.offsetWidth;
+            if (change > 0) cell.classList.add('flash-up');
+            else cell.classList.add('flash-down');
+          }
+        }
+      }, 1500);
     }
 
-    function loadTradingViewScreenerWidget(marketType) {
-      const container = document.getElementById("screener-embedded-container");
-      container.innerHTML = "";
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-screener.js";
-      script.async = true;
+    /* -------------------------------------------------------------------------
+       ORDER EXECUTION MODAL
+    ------------------------------------------------------------------------- */
+    let currentOrderPremium = 0;
 
-      let defaultScreen = "general";
-      let market = "forex";
+    function openOrderModal(type, strike, price, side) {
+      document.getElementById('order-modal').classList.add('active');
+      document.getElementById('m-symbol').innerText = currentSymbol;
+      const cLabel = `${type} $${strike.toFixed(2)} ${side}`;
+      const contractEl = document.getElementById('m-contract');
+      contractEl.innerText = cLabel;
+      contractEl.style.color = type === 'CALL' ? 'var(--accent-green)' : 'var(--accent-red)';
 
-      if (marketType === "crypto") {
-        market = "crypto";
-        defaultScreen = "general";
-      } else if (marketType === "stocks") {
-        market = "america";
-        defaultScreen = "most_capitalized";
-      } else {
-        market = "forex";
-        defaultScreen = "general";
-      }
-
-      script.innerHTML = JSON.stringify({
-        "width": "100%",
-        "height": "100%",
-        "defaultColumn": "overview",
-        "defaultScreen": defaultScreen,
-        "market": market,
-        "showToolbar": true,
-        "colorTheme": "dark",
-        "locale": "en",
-        "isTransparent": true
-      });
-
-      container.appendChild(script);
-    }
-
-    /* --- ORDER MODAL CONTROLS --- */
-    function openOrderModal(strike, type, price) {
-      selectedOptionForOrder = { strike, type, price };
-      document.getElementById("m-symbol").innerText = currentSymbol;
-      document.getElementById("m-contract").innerText = `${type} @ $${strike}`;
-      document.getElementById("m-price").innerText = `$${price}`;
-      document.getElementById("m-qty").value = 1;
+      document.getElementById('m-price').innerText = `$${price.toFixed(2)}`;
+      document.getElementById('m-qty').value = 1;
+      currentOrderPremium = price;
       updateModalTotal();
-      document.getElementById("order-modal").classList.add("active");
     }
 
     function closeOrderModal() {
-      document.getElementById("order-modal").classList.remove("active");
+      document.getElementById('order-modal').classList.remove('active');
     }
 
     function updateModalTotal() {
-      if (!selectedOptionForOrder) return;
-      const qty = parseInt(document.getElementById("m-qty").value) || 1;
-      const total = selectedOptionForOrder.price * qty * 100;
-      document.getElementById("m-total").innerText = `$${total.toFixed(2)}`;
+      const qty = parseInt(document.getElementById('m-qty').value) || 1;
+      // Options typically represent 100 shares
+      const total = (currentOrderPremium * 100 * qty).toFixed(2);
+      document.getElementById('m-total').innerText = `$${total}`;
     }
 
     function confirmOrder() {
-      showToast(`Order Executed: ${selectedOptionForOrder.type} $${selectedOptionForOrder.strike}!`, "green");
       closeOrderModal();
+      showToast(`ORDER EXECUTED: Submitted to Infernal Broker Engine.`);
     }
 
-    function onReferencePriceChange() {
-      activeSelectedPrice = parseFloat(document.getElementById("sig-price").value) || 200.00;
-      renderOptionChain();
-      generateInfernalSignal();
+
+    /* -------------------------------------------------------------------------
+       SCREENER LOGIC
+    ------------------------------------------------------------------------- */
+    function switchScreenerView(category) {
+      document.querySelectorAll('.screener-tab-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      currentScreenerDataset = category;
+      document.getElementById('screener-search').value = '';
+      runScreener();
     }
 
-    function handleSymbolSubmit(event) {
-      event.preventDefault();
-      const inputVal = document.getElementById("symbol-input").value.trim().toUpperCase();
-      if (inputVal) {
-        updateWidgets(inputVal);
-        clearPresetActiveState();
-      }
-    }
+    function runScreener() {
+      const tbody = document.getElementById('screener-body');
+      tbody.innerHTML = '';
+      const data = screenerDataSets[currentScreenerDataset];
 
-    function changeSymbol(symbol, btnElement) {
-      updateWidgets(symbol);
-      clearPresetActiveState();
-      if (btnElement) {
-        btnElement.classList.add("active");
-      }
-    }
+      data.forEach(item => {
+        // Generate random analytics for demonstration
+        const changePct = (Math.random() * 10 - 5).toFixed(2);
+        const isUp = changePct >= 0;
+        const color = isUp ? 'var(--accent-green)' : 'var(--accent-red)';
 
-    function clearPresetActiveState() {
-      document.querySelectorAll(".preset-btn").forEach(btn => btn.classList.remove("active"));
-    }
+        const rsi = Math.floor(Math.random() * 100);
+        let macd = "BULL CROSS";
+        if (Math.random() > 0.5) macd = "BEAR CROSS";
 
-    function downloadTemplate() {
-      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "the_devil_terminal.html";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(link.href);
-      showToast("Template downloaded successfully!", "green");
-    }
+        let ratingClass = "neutral";
+        let ratingText = "NEUTRAL";
 
-    function copyLinkAddress() {
-      let linkToCopy = window.location.href;
-      if (window.location.protocol === 'file:' || window.location.protocol === 'about:') {
-        const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-        linkToCopy = "data:text/html;charset=utf-8," + encodeURIComponent(htmlContent);
-      }
-      navigator.clipboard.writeText(linkToCopy).then(() => {
-        showToast("Link copied to clipboard!", "green");
+        if (rsi > 70 && !isUp) { ratingClass = "strong-sell"; ratingText = "STRONG SELL"; }
+        else if (rsi < 30 && isUp) { ratingClass = "strong-buy"; ratingText = "STRONG BUY"; }
+        else if (isUp) { ratingClass = "buy"; ratingText = "BUY"; }
+        else { ratingClass = "sell"; ratingText = "SELL"; }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight: 700;">${item.ticker}</td>
+          <td>${item.price}</td>
+          <td style="color: ${color};">${isUp ? '+' : ''}${changePct}%</td>
+          <td>${item.vol}</td>
+          <td>${rsi}</td>
+          <td>${macd}</td>
+          <td><span class="screener-badge ${ratingClass}">${ratingText}</span></td>
+          <td>
+            <button class="screener-action-btn" onclick="changeSymbol('NASDAQ:${item.ticker}', document.querySelector('.preset-btn'))">Chart</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
       });
     }
 
-    /* --- ZIP ARCHIVE EXPORT FUNCTION --- */
-    function downloadAsZip() {
-      if (typeof JSZip === 'undefined') {
-        showToast("JSZip library failed to load.", "normal");
-        return;
+    function filterScreener() {
+      const term = document.getElementById('screener-search').value.toLowerCase();
+      const rows = document.getElementById('screener-body').getElementsByTagName('tr');
+      for (let i = 0; i < rows.length; i++) {
+        const ticker = rows[i].getElementsByTagName('td')[0].innerText.toLowerCase();
+        if (ticker.includes(term)) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
       }
-
-      const zip = new JSZip();
-      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-
-      // Add the HTML file to the root of the ZIP archive
-      zip.file("index.html", htmlContent);
-
-      // Add a README note inside the ZIP
-      zip.file("README.md", "# The Devil - Infernal Market Terminal\n\nOpen index.html in any modern web browser to run the terminal.");
-
-      zip.generateAsync({ type: "blob" }).then(function (content) {
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(content);
-        link.download = "the_devil_infernal_terminal.zip";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-        showToast("📦 Terminal zipped & downloaded successfully!", "green");
-      }).catch(err => {
-        showToast("Error generating zip archive.", "normal");
-      });
     }
 
-    /* --- NEW FUNCTION: COPY ENTIRE SOURCE CODE --- */
-    function copySourceCode() {
-      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-      navigator.clipboard.writeText(htmlContent).then(() => {
-        showToast("Source code copied to clipboard!", "green");
-      }).catch(err => {
-        showToast("Failed to copy source code.", "normal");
-      });
-    }
+    /* -------------------------------------------------------------------------
+       MISC VISUAL SIMULATIONS
+    ------------------------------------------------------------------------- */
+    function startLivePriceSimulation() {
+      // Fast trend finder badge flasher
+      setInterval(() => {
+        const pills = document.querySelectorAll('.tf-badge');
+        const randPill = pills[Math.floor(Math.random() * pills.length)];
 
-    window.addEventListener("DOMContentLoaded", () => {
-      loadMainChart(currentSymbol);
-      updateTechnicalGauge(currentSymbol);
-      updateCompanyProfile(currentSymbol);
-      updateTrendFinder(currentSymbol);
-      generateInfernalSignal();
-      populateOptionExpirations();
-      renderOptionChain();
-      renderCustomScreenerTable();
-      startLivePriceTicker();
-    });
+        // toggle class for effect briefly
+        const isBull = randPill.classList.contains('bullish');
+        if (isBull) {
+          randPill.style.boxShadow = '0 0 15px #00ff66';
+        } else {
+          randPill.style.boxShadow = '0 0 15px #ff003c';
+        }
+
+        setTimeout(() => {
+          randPill.style.boxShadow = '';
+        }, 500);
+
+      }, 3000);
+    }
   </script>
 </body>
 
